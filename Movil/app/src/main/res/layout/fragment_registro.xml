@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/temadegradado">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Registro"
+            android:textSize="30sp"
+            android:textColor="@color/blanco"
+            android:textStyle="bold"
+            android:layout_gravity="center|top"
+            android:layout_marginTop="60dp"
+            />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="131dp"
+                android:layout_height="140dp"
+                android:layout_marginBottom="40dp"
+                android:src="@drawable/register"
+                />
+
+            <EditText
+                android:id="@+id/edtcorreo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@android:color/darker_gray"
+                android:ems="10"
+                android:hint="Nombre de usuario"
+                android:textColorHint="@color/blanco"
+                android:inputType="text"
+                android:textColor="@color/blanco"
+                android:paddingLeft="5dp" />
+            <EditText
+                android:id="@+id/edtNomUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_marginTop="10dp"
+                android:backgroundTint="@android:color/darker_gray"
+                android:ems="10"
+                android:hint="Correo"
+                android:textColorHint="@color/blanco"
+                android:inputType="text"
+                android:textColor="@color/blanco"
+                android:paddingLeft="5dp" />
+
+            <EditText
+                android:id="@+id/edtPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@android:color/darker_gray"
+                android:ems="10"
+                android:hint="Password"
+                android:textColor="@color/blanco"
+                android:textColorHint="@color/blanco"
+                android:inputType="textPassword"
+                android:paddingLeft="5dp" />
+
+            <Button
+                android:id="@+id/btnRegistro"
+                android:layout_width="183dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="45dp"
+                android:layout_marginRight="15dp"
+                android:background="@drawable/btn_login"
+                android:backgroundTint="#FFFFFF"
+                android:text="@string/registrarse"
+                android:textColor="#0030C5"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </FrameLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
