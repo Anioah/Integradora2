@@ -29,4 +29,9 @@ Route.post('userVerification','UserController.tokenValidation');
 
 Route.group(() => {
 
+  // Lectures routes
+  Route.post('newLecture','LecturaController.store');
+
 }).middleware(['auth']);
+
+Route.get('test','LecturaController.getDate');

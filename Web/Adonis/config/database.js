@@ -16,7 +16,7 @@ module.exports = {
   | interacting with SQL databases.
   |
   */
-  connection: Env.get('DB_CONNECTION', 'sqlite'),
+  connection: Env.get('DB_CONNECTION', 'mysql'),
 
   /*
   |--------------------------------------------------------------------------
@@ -80,5 +80,27 @@ module.exports = {
       database: Env.get('DB_DATABASE', 'adonis')
     },
     debug: Env.get('DB_DEBUG', false)
-  }
+  },
+     /*
+  |--------------------------------------------------------------------------
+  | MongoDB
+  |--------------------------------------------------------------------------
+  |
+  | Here we define connection settings for MongoDB database.
+  |
+  */
+ /*mongodb: {
+  connectionString: Env.get('mongodb+srv://Anioah:Angewomon/1995@act1-m5bsf.mongodb.net/<dbname>?retryWrites=true&w=majority', null),
+  connection: {
+    host: Env.get('MONGO_HOST', 'localhost'),
+    port: Env.get('MONGO_PORT', 27017),
+    user: Env.get('MONGO_USER', 'admin'),
+    pass: Env.get('MONGO_PASSWORD', ''),
+    database: Env.get('MONGO_DATABASE', 'adonis'),
+    options: {
+      // All options can be found at http://mongoosejs.com/docs/connections.html
+    },
+    debug: false
+    }
+  }*/
 }
