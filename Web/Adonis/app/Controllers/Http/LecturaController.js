@@ -35,18 +35,20 @@ class LecturaController {
   
       const data = await request.all();
 
-      let lectura = await Lectura.lecturaMongo.create({
-          _id : new Lectura.mongoose.Types.ObjectId(),
-        temperatura : data.temperatura,
-        humedad : data.humedad,
-        presion : data.presion,
-        latitud : data.latitud,
-        longitud : data.longitud,
-        fecha: data.fecha
-
-      });
+      let getIdentificador = await Lectura.lecturaMongo.countDocuments();
 
       try {
+        let lectura = await Lectura.lecturaMongo.create({
+            _id : new Lectura.mongoose.Types.ObjectId(),
+            temperatura : data.temperatura,
+            humedad : data.humedad,
+            presion : data.presion,
+            latitud : data.latitud,
+            longitud : data.longitud,
+            fecha: data.fecha,
+            identificador: getIdentificador
+          });
+
         return response.status(200).json({
             status:'OK',
             message:'Recopilación de datos guardada exitosamente',
@@ -55,7 +57,7 @@ class LecturaController {
             }
           });   
       } catch (error) {
-          return response.status(400).json(error)
+          return response.status(400).json({message: "Recopilación de datos no exitosa, intente nuevamente"})
       }
 
     }
@@ -68,11 +70,60 @@ class LecturaController {
 
         const data = await request.all();
 
-        const contratos = await this.getData(data.empleado_id);
+        const lecturas = await Lectura.lecturaMongo.find().sort({"identificador":-1}).limit(10);
     
-        return response.status(200).json(contratos);
-    
+        return response.status(200).json(lecturas);
 
+    }
+
+    async showPerTemperatures({request,response}){
+
+        await this.closeConection();
+
+        await this.mongoDBConnect();
+
+        const data = await request.all();
+
+        const lecturas = await Lectura.lecturaMongo.find({"temperatura" : data.temperatura});
+
+        if(lecturas == ""){
+            return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
+        }
+        return response.status(200).json(lecturas);
+
+    }
+
+    async showPerHumedity({request,response}){
+
+        await this.closeConection();
+
+        await this.mongoDBConnect();
+
+        const data = await request.all();
+
+        const lecturas = await Lectura.lecturaMongo.find({"humedad" : data.humedad});
+
+        if(lecturas == ""){
+            return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
+        }
+        return response.status(200).json(lecturas);
+
+    }
+
+    async showPerPresion({request,response}){
+
+        await this.closeConection();
+
+        await this.mongoDBConnect();
+
+        const data = await request.all();
+
+        const lecturas = await Lectura.lecturaMongo.find({presion : data.presion});
+
+        if(lecturas == ""){
+            return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
+        }
+        return response.status(200).json(lecturas);
     }
 
 
@@ -111,15 +162,16 @@ class LecturaController {
     }
 
 
-  async getData(empleado_id){
+  async getData(_id){
 
-    if(empleado_id!==null){
-      //return await ContratosMongo.find();
-      return await Contrato.ContratosMongo.find({empleado_id: empleado_id});
+    if(_id !== null){
+        return await Lectura.lecturaMongo.find(Lectura.mongoose.Types.ObjectId(_id));
     }
-    return json("No data");
+    
+    return await Lectura.lecturaMongo.find();
 
   }
+
 
 }
 

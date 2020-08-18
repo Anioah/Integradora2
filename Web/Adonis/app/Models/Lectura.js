@@ -16,7 +16,8 @@ class Lectura extends Model {
     presion: this.Schema.Types.Number,
     latitud: this.Schema.Types.Number,
     longitud: this.Schema.Types.Number,
-    fecha: this.Schema.Types.Date
+    fecha: this.Schema.Types.Date,
+    identificador:  this.Schema.Types.Number
   });
 
   static lecturaMongo = this.mongoose.model('lecturas',this.lecturasSchema);
