@@ -29,4 +29,14 @@ Route.post('userVerification','UserController.tokenValidation');
 
 Route.group(() => {
 
+  // Lectures routes
+  Route.post('newLecture','LecturaController.store');
+  Route.get('show','LecturaController.show');
+  Route.post('perTemperature','LecturaController.showPerTemperatures');
+  Route.post('perHumedity','LecturaController.showPerHumedity');
+  Route.post('perPresion','LecturaController.showPerPresion');
+
 }).middleware(['auth']);
+
+//testing
+Route.post('test','LecturaController.getData');
