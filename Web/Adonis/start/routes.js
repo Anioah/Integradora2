@@ -19,3 +19,14 @@ const Route = use('Route')
 Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
+
+// User login and register
+Route.post('register','UserController.register');
+Route.post('login','UserController.login');
+
+//User validation for HTTP request
+Route.post('userVerification','UserController.tokenValidation');
+
+Route.group(() => {
+
+}).middleware(['auth']);
