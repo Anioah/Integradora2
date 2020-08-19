@@ -32,9 +32,11 @@ Route.group(() => {
   // Lectures routes
   Route.post('newLecture','LecturaController.store');
   Route.get('show','LecturaController.show');
+  Route.put('updateData','LecturaController.update');
   Route.post('perTemperature','LecturaController.showPerTemperatures');
   Route.post('perHumedity','LecturaController.showPerHumedity');
   Route.post('perPresion','LecturaController.showPerPresion');
+  Route.delete('deleteData','LecturaController.delete');
 
 }).middleware(['auth']);
 
