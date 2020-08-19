@@ -30,13 +30,20 @@ Route.post('userVerification','UserController.tokenValidation');
 Route.group(() => {
 
   // Lectures routes
-  Route.post('newLecture','LecturaController.store');  //Este es para Zapata
-  Route.get('show','LecturaController.show');//Zamora
-  Route.post('perTemperature','LecturaController.showPerTemperatures');//Zamora
-  Route.post('perHumedity','LecturaController.showPerHumedity');//Zamora
-  Route.post('perPresion','LecturaController.showPerPresion');//Zamora
+  Route.post('newLecture','LecturaController.store'); // store new lectures
+  Route.get('show','LecturaController.show'); // show all lectures
+  Route.put('updateData','LecturaController.update'); // update an existent lecture
+  Route.post('perTemperature','LecturaController.showPerTemperatures'); // show lectures per temperature value
+  Route.post('perHumedity','LecturaController.showPerHumedity'); // show lectures per humedity value
+  Route.post('perPresion','LecturaController.showPerPresion'); // show lectures per presion value
+  Route.post('perDate','LecturaController.showPerDate') // show lecture per day
+  Route.post('betweenDates','LecturaController.showBetweenDates'); // show lectures between 2 days
+  Route.delete('deleteData','LecturaController.delete');  // delete an existent lecture
+
+  // average 
+  Route.get('calculateAverage', 'LecturaController.makePromedio'); // store a new average
+  
+  //get last average
+  Route.get('average','LecturaController.getAverage');
 
 }).middleware(['auth']);
-
-//testing
-Route.post('test','LecturaController.getData');
