@@ -10,21 +10,15 @@ class LecturaController {
         return response.status(200).json(super.dates.concat['dob'])
     }
 
+    // call conection
     async mongoDBConnect(){
 
         await Lectura.mongoose.connect('mongodb://127.0.0.1:27017/proyecto_mzz', {useNewUrlParser: true, useMongoClient: true, useUnifiedTopology: true});
     }
 
+    // end conection
     async closeConection(){
       await Lectura.mongoose.connection.close();
-    }
-
-    async index({response}){
-
-        await this.mongoDBConnect();
-
-        return await this.getData();
-
     }
 
     async store({request,response}){
@@ -70,10 +64,13 @@ class LecturaController {
 
         const data = await request.all();
 
-        const lecturas = await Lectura.lecturaMongo.find().sort({"identificador":-1}).limit(10);
-    
-        return response.status(200).json(lecturas);
-
+        try {
+            const lecturas = await Lectura.lecturaMongo.find();
+            return response.status(200).json(lecturas);
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+        
     }
 
     async showPerTemperatures({request,response}){
@@ -84,12 +81,16 @@ class LecturaController {
 
         const data = await request.all();
 
-        const lecturas = await Lectura.lecturaMongo.find({"temperatura" : data.temperatura});
+        try {
+            const lecturas = await Lectura.lecturaMongo.find({"temperatura" : data.temperatura});
 
-        if(lecturas == ""){
-            return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
+            if(lecturas == ""){
+                return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
+            }
+            return response.status(200).json(lecturas);
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
         }
-        return response.status(200).json(lecturas);
 
     }
 
@@ -101,13 +102,17 @@ class LecturaController {
 
         const data = await request.all();
 
+        try {         
         const lecturas = await Lectura.lecturaMongo.find({"humedad" : data.humedad});
 
         if(lecturas == ""){
             return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
         }
         return response.status(200).json(lecturas);
-
+   
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
     }
 
     async showPerPresion({request,response}){
@@ -118,12 +123,17 @@ class LecturaController {
 
         const data = await request.all();
 
-        const lecturas = await Lectura.lecturaMongo.find({presion : data.presion});
+        try {
+            const lecturas = await Lectura.lecturaMongo.find({presion : data.presion});
 
-        if(lecturas == ""){
-            return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
+            if(lecturas == ""){
+                return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
+            }
+            return response.status(200).json(lecturas);
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
         }
-        return response.status(200).json(lecturas);
+
     }
 
 
@@ -135,18 +145,34 @@ class LecturaController {
 
         const data = await request.all();
 
-        await Contrato.ContratosMongo.update({_id: Contrato.mongoose.Types.ObjectId(data._id)},{$set:{
-            "empleado_id": data.empleado_id,
-            "duracion_contrato" : data.duracion_contrato,
-            "puesto" : data.puesto,
-            "sueldo" : data.sueldo,
-            "nombre_empresa" : data.nombre_empresa
+        try {
+            const ident = await Lectura.lecturaMongo.find({_id: Lectura.mongoose.Types.ObjectId(data._id)})
+
+            var identificador
+    
+            for(let i = 0; i < ident.length; i ++){
+                identificador = ident[i]
             }
-        })
+    
+            await Lectura.lecturaMongo.update({_id: Lectura.mongoose.Types.ObjectId(data._id)},{$set:{
+                "temperatura": data.temperatura,
+                "humedad" : data.humedad,
+                "presion" : data.presion,
+                "latitud" : data.latitud,
+                "longitud" : data.longitud,
+                "fecha": data.fecha,
+                "identificador": identificador.identificador
+                }
+            })
+    
+            const newLectura = await Lectura.lecturaMongo.find({_id: Lectura.mongoose.Types.ObjectId(data._id)})
+    
+            return response.status(200).json({data: "Lectura actualizada correctamente" , "lectura" : newLectura });
+        } catch (error) {
+            return response.status(400).json({message: "Actualización no realizada, verifique los parámetros de entrada"});
+        }
 
-        const newContrato = await Contrato.ContratosMongo.find({_id: Contrato.mongoose.Types.ObjectId(data._id)})
 
-        return response.status(200).json({data: "Contrato actualizado correctamente" , "contrato" : newContrato })
     }
 
     async delete({request,response}){
@@ -157,20 +183,13 @@ class LecturaController {
 
         const data = await request.all();
 
-        return await Contrato.ContratosMongo.findOneAndRemove({_id: Contrato.mongoose.Types.ObjectId(data._id)});;
-
+        try {
+            return await Lectura.lecturaMongo.findOneAndRemove({_id: Lectura.mongoose.Types.ObjectId(data._id)});;
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+       
     }
-
-
-  async getData(_id){
-
-    if(_id !== null){
-        return await Lectura.lecturaMongo.find(Lectura.mongoose.Types.ObjectId(_id));
-    }
-    
-    return await Lectura.lecturaMongo.find();
-
-  }
 
 
 }
