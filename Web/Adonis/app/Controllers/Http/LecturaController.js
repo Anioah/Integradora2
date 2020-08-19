@@ -2,13 +2,10 @@
 
 const Lectura = use('App/Models/Lectura');
 
+const Promedio = use('App/Models/Promedio')
+
 class LecturaController {
 
-
-    // get actual date
-    getDate({request,response}){
-        return Date.now();
-    }
 
     // call conection
     async mongoDBConnect(){
@@ -230,6 +227,84 @@ class LecturaController {
         }
        
     }
+
+    async makePromedio({response}){
+
+        await this.mongoDBConnect();
+    
+    
+        const promedio = new Promedio()
+    
+        try {
+            const promTemp = await Lectura.lecturaMongo.aggregate([
+                {$sort: {"fecha": -1}},
+                {$limit: 5},
+               {$project: { "Promedio" : { $avg: "$temperatura" }} }
+            ])
+        
+            const promHum = await Lectura.lecturaMongo.aggregate([
+                {$sort: {"fecha": -1}},
+                {$limit: 5},
+               {$project: { "Promedio" : { $avg: "$humedad" }} }
+            ])
+    
+            const promPres = await Lectura.lecturaMongo.aggregate([
+                {$sort: {"fecha": -1}},
+                {$limit: 5},
+               {$project: { "Promedio" : { $avg: "$presion" }} }
+            ])
+        
+            // Extrayendo promedio de ArrayObject
+        
+            var temp, hum, presion;
+        
+            for (let index = 0; index < promTemp.length; index++) {
+                const element = promTemp[index];
+        
+                temp = element.Promedio
+            }
+        
+            for (let index = 0; index < promHum.length; index++) {
+                const element = promHum[index];
+        
+                hum = element.Promedio
+            }
+    
+            for (let index = 0; index < promPres.length; index++){
+                const element = promPres[index];
+    
+                presion = element.Promedio
+            }
+        
+            // Mandando datos a MYSQL
+        
+            promedio.prom_temperatura = temp
+            promedio.prom_humedad = hum
+            promedio.prom_presion = presion
+        
+            await promedio.save()
+        
+            return response.status(200).json(promedio)
+
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+    
+      }
+
+
+      async getAverage({request,response}){
+
+        try {
+            var promedio = [await Promedio.last()];
+
+            return response.status(200).json(promedio);   
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+
+      }
+    
 
 
 }
