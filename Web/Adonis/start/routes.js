@@ -30,11 +30,11 @@ Route.post('userVerification','UserController.tokenValidation');
 Route.group(() => {
 
   // Lectures routes
-  Route.post('newLecture','LecturaController.store');
-  Route.get('show','LecturaController.show');
-  Route.post('perTemperature','LecturaController.showPerTemperatures');
-  Route.post('perHumedity','LecturaController.showPerHumedity');
-  Route.post('perPresion','LecturaController.showPerPresion');
+  Route.post('newLecture','LecturaController.store');  //Este es para Zapata
+  Route.get('show','LecturaController.show');//Zamora
+  Route.post('perTemperature','LecturaController.showPerTemperatures');//Zamora
+  Route.post('perHumedity','LecturaController.showPerHumedity');//Zamora
+  Route.post('perPresion','LecturaController.showPerPresion');//Zamora
 
 }).middleware(['auth']);
 
