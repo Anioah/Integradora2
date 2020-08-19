@@ -7,13 +7,19 @@
               </div>
               <div class="card-body" id="card-body">
                   <div class="row">
+                    <div class="col-12">
+                      <img width="90" src="assets/atmospheric.png" alt="Logo">
+                      <h5><label for="Welcome"class="col-form-label text-light">
+                        Estación Meteorológica
+                      </label></h5>
+                    </div>
                       <div class="col-12">
                           <label for="correo" class="col-form-label text-light">
                               Correo electrónico
                           </label>
                       </div>
                       <div class="col-12">
-                          <input type="email" class="form-control bg-light text-primary" name="correo" id="correo"
+                          <input type="email" [(ngModel)]="email" class="form-control bg-light text-primary" name="correo" id="correo"
                                  placeholder="Correo electrónico">
                       </div>
                   </div>
@@ -22,7 +28,7 @@
                           <label for="password" class="col-form-label  text-light">Password</label>
                       </div>
                       <div class="col-12">
-                          <input type="password" class="form-control bg-light text-info" name="password" id="password"
+                          <input type="password" (keydown)="password_keydown($event)" [(ngModel)]="password" class="form-control bg-light text-info" name="password" id="password"
                                  placeholder="Password">
                       </div>
                   </div>
@@ -30,7 +36,7 @@
               <div class="card-footer">
                   <div class="row">
                       <div class="col-12">
-                          <input type="submit" class="btn btn-block  bg-light text-primary" value="Log in">
+                          <input type="submit"class="btn btn-block bg-light text-primary" value="Log in" (click)="log_in()">
                       </div>
                   </div>
               </div>
