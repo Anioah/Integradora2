@@ -7,12 +7,11 @@ class LecturaController {
 
     // get actual date
     getDate({request,response}){
-        return response.status(200).json(super.dates.concat['dob'])
+        return Date.now();
     }
 
     // call conection
     async mongoDBConnect(){
-
         await Lectura.mongoose.connect('mongodb://127.0.0.1:27017/proyecto_mzz', {useNewUrlParser: true, useMongoClient: true, useUnifiedTopology: true});
     }
 
@@ -39,7 +38,7 @@ class LecturaController {
             presion : data.presion,
             latitud : data.latitud,
             longitud : data.longitud,
-            fecha: data.fecha,
+            fecha: Date.now(),
             identificador: getIdentificador
           });
 
@@ -136,6 +135,47 @@ class LecturaController {
 
     }
 
+    async showPerDate({request,response}){
+
+        await this.closeConection();
+
+        await this.mongoDBConnect();
+
+        const data = await request.all();
+
+        try {
+            const lecturas = await Lectura.lecturaMongo.find({fecha: new Date(data.fecha)});
+
+            if(lecturas == ""){
+                return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
+            }
+            return response.status(200).json(lecturas);
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+
+    }
+
+    async showBetweenDates({request,response}){
+
+        await this.closeConection();
+
+        await this.mongoDBConnect();
+
+        const data = await request.all();
+
+        try {
+            const lecturas = await Lectura.lecturaMongo.find({fecha: { $gte: data.fecha1, $lte: data.fecha2 }});
+
+            if(lecturas == ""){
+                return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
+            }
+            return response.status(200).json(lecturas);
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+
+    }
 
     async update({request,response}){
 

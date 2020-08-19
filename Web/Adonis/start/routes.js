@@ -36,9 +36,11 @@ Route.group(() => {
   Route.post('perTemperature','LecturaController.showPerTemperatures');
   Route.post('perHumedity','LecturaController.showPerHumedity');
   Route.post('perPresion','LecturaController.showPerPresion');
+  Route.post('perDate','LecturaController.showPerDate')
+  Route.post('betweenDates','LecturaController.showBetweenDates');
   Route.delete('deleteData','LecturaController.delete');
 
 }).middleware(['auth']);
 
 //testing
-Route.post('test','LecturaController.getData');
+Route.get('test','LecturaController.getDate');
