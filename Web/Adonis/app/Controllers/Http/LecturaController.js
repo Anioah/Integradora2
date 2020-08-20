@@ -70,7 +70,7 @@ class LecturaController {
         const data = await request.all();
 
         try {
-            const lecturas = await Lectura.lecturaMongo.find();
+            const lecturas = await Lectura.lecturaMongo.find().sort({"fecha":-1});
             return response.status(200).json(lecturas);
         } catch (error) {
             return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
@@ -301,20 +301,29 @@ class LecturaController {
             return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
         }
     
-      }
+    }
 
 
-      async getAverage({request,response}){
-
+    async getAverage({request,response}){
         try {
             var promedio = [await Promedio.last()];
-
             return response.status(200).json(promedio);   
         } catch (error) {
             return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
         }
 
-      }
+    }
+
+    async getLecture({}){
+        try {
+            await this.mongoDBConnect();
+            return await Lectura.lecturaMongo.find().sort({"fecha":-1}).limit(1);
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+
+    
+    }
     
 
 

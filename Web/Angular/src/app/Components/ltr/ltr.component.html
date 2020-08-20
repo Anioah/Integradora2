@@ -16,3 +16,40 @@
     </div>
   </nav>
 </div>
+
+<div class="container mt-2">
+  <div class="card bg-primary text-light text-center">
+    <div class="card-body">
+        <div>
+          <h1>Estación Meteorologica</h1>
+        </div>
+    </div>
+  </div>
+  <div class="card bg-success text-light mt-2">
+    <div class="card-body text-center">
+      <div>
+        <h3><span>Temperatura</span></h3>
+      </div>
+      <div *ngFor="let dato of datos" >
+        <h4><span>{{dato.temperatura}}</span>°</h4>
+      </div>
+      <div class="mt-5">
+        <h3><span>Humedad</span></h3>
+      </div>
+      <div *ngFor="let dato of datos">
+        <h4><span>{{dato.humedad}}</span>%</h4>
+      </div>
+      <div class="mt-5">
+        <h3><span>Promedio Temperatura</span></h3>
+      </div>
+      <div *ngFor="let promedio of promedios">
+        <h4><span>{{promedio.prom_temperatura}}</span></h4>
+      </div>
+      <div class="mt-5">
+        <h3><span>Promedio Humedad</span></h3>
+      </div>
+      <div *ngFor="let promedio of promedios">
+        <h4><span>{{promedio.prom_humedad}}</span></h4>
+      </div>
+  </div>
+</div>
