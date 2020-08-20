@@ -13,7 +13,7 @@ class Lectura extends Model {
     _id: this.Schema.Types.ObjectId,
     temperatura: this.Schema.Types.Number,
     humedad: this.Schema.Types.Number,
-    presion: this.Schema.Types.Number,
+   // presion: this.Schema.Types.Number,
     latitud: this.Schema.Types.Number,
     longitud: this.Schema.Types.Number,
     fecha: this.Schema.Types.Date,

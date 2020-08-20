@@ -9,7 +9,17 @@ class LecturaController {
 
     // call conection
     async mongoDBConnect(){
-        await Lectura.mongoose.connect('mongodb://127.0.0.1:27017/proyecto_mzz', {useNewUrlParser: true, useMongoClient: true, useUnifiedTopology: true});
+
+        try {
+            // to Atlas
+            await Lectura.mongoose.connect('mongodb+srv://Anioah:anioah123@act1-m5bsf.mongodb.net/proyecto_mzz?retryWrites=true&w=majority', {useNewUrlParser: true, useMongoClient: true, useUnifiedTopology: true});
+        } catch (error) { } 
+
+        try {
+            // to local
+            await Lectura.mongoose.connect('mongodb://127.0.0.1:27017/proyecto_mzz', {useNewUrlParser: true, useMongoClient: true, useUnifiedTopology: true, connectTimeoutMS: 5000});
+        } catch (error) { }
+            
     }
 
     // end conection
@@ -32,7 +42,6 @@ class LecturaController {
             _id : new Lectura.mongoose.Types.ObjectId(),
             temperatura : data.temperatura,
             humedad : data.humedad,
-            presion : data.presion,
             latitud : data.latitud,
             longitud : data.longitud,
             fecha: Date.now(),
@@ -78,7 +87,7 @@ class LecturaController {
         const data = await request.all();
 
         try {
-            const lecturas = await Lectura.lecturaMongo.find({"temperatura" : data.temperatura});
+            const lecturas = await Lectura.lecturaMongo.find({"temperatura": { $gte: data.temperatura, $lte: data.temperatura + .99  }});
 
             if(lecturas == ""){
                 return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
@@ -99,7 +108,7 @@ class LecturaController {
         const data = await request.all();
 
         try {         
-        const lecturas = await Lectura.lecturaMongo.find({"humedad" : data.humedad});
+        const lecturas = await Lectura.lecturaMongo.find({"humedad" : { $gte: data.humedad, $lte: data.humedad + .99  }});
 
         if(lecturas == ""){
             return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
@@ -120,7 +129,7 @@ class LecturaController {
         const data = await request.all();
 
         try {
-            const lecturas = await Lectura.lecturaMongo.find({presion : data.presion});
+            const lecturas = await Lectura.lecturaMongo.find({"presion": { $gte: data.presion, $lte: data.presion + .99 }});
 
             if(lecturas == ""){
                 return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
@@ -140,8 +149,11 @@ class LecturaController {
 
         const data = await request.all();
 
+        var fecha1 = data.year + "/" + data.month + "/" + data.day;
+        var fecha2 = data.year + "/" + data.month + "/" +(data.day + 1);
+
         try {
-            const lecturas = await Lectura.lecturaMongo.find({fecha: new Date(data.fecha)});
+            const lecturas = await Lectura.lecturaMongo.find({fecha: {$gte: new Date(fecha1), $lte: new Date(fecha2)} });
 
             if(lecturas == ""){
                 return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
@@ -162,7 +174,7 @@ class LecturaController {
         const data = await request.all();
 
         try {
-            const lecturas = await Lectura.lecturaMongo.find({fecha: { $gte: data.fecha1, $lte: data.fecha2 }});
+            const lecturas = await Lectura.lecturaMongo.find({fecha: { $gte: new Date(data.fecha1), $lte: new Date(data.fecha2) }});
 
             if(lecturas == ""){
                 return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
@@ -194,7 +206,6 @@ class LecturaController {
             await Lectura.lecturaMongo.update({_id: Lectura.mongoose.Types.ObjectId(data._id)},{$set:{
                 "temperatura": data.temperatura,
                 "humedad" : data.humedad,
-                "presion" : data.presion,
                 "latitud" : data.latitud,
                 "longitud" : data.longitud,
                 "fecha": data.fecha,
