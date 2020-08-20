@@ -1,0 +1,53 @@
+<div class="container text-center">
+  <div class="row mt-3 justify-content-center">
+      <div class="col-lg-6 col-12">
+          <div class="card">
+              <div class="card-header bg-light text-primary">
+                  <span>Inicia Sesión</span>
+              </div>
+              <div class="card-body" id="login">
+                  <div class="row">
+                    <div class="col-12">
+                      <img width="90" src="assets/atmospheric.png" alt="Logo">
+                      <h5><label for="Welcome"class="col-form-label text-light">
+                        Estación Meteorológica
+                      </label></h5>
+                    </div>
+                      <div class="col-12">
+                          <label for="correo" class="col-form-label text-light">
+                              Correo electrónico
+                          </label>
+                      </div>
+                      <div class="col-12">
+                          <input type="email" [(ngModel)]="email" class="form-control bg-light text-primary" name="correo" id="correo"
+                                 placeholder="Correo electrónico">
+                      </div>
+                  </div>
+                  <div class="row mt-3">
+                      <div class="col-12">
+                          <label for="password" class="col-form-label  text-light">Password</label>
+                      </div>
+                      <div class="col-12">
+                          <input type="password" (keydown)="password_keydown($event)" [(ngModel)]="password" class="form-control bg-light text-info" name="password" id="password"
+                                 placeholder="Password">
+                      </div>
+                  </div>
+              </div>
+              <div class="card-footer">
+                  <div class="row">
+                      <div class="col-12">
+                          <input type="submit"class="btn btn-block bg-light text-primary" value="Log in" (click)="log_in()">
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- .row with card end -->
+
+  <div class="row justify-content-center mt-3">
+      <span class="text-light">¿No tienes cuenta?<h6><a href="/registrar" class="text-light"> Crea Una.</a></h6></span>
+  </div>
+
+  <!-- .container -->
+</div>

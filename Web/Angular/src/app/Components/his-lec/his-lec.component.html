@@ -1,0 +1,80 @@
+<div class="container">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav mr-12">
+        <img width="30" height="30" src="assets/atmospheric.png" alt="Logo">
+        <a class="nav-link active text-primary" href="/home"><span>Inicio</span></a>
+        <a class="nav-link active text-primary" href="/his-lec"><span>Historial Lecturas</span></a>
+        <a class="nav-link active text-primary" href="/ltr"><span>Lect.Tiempo Real</span></a>
+      <div class="navbar-nav" alignment="right">
+        <a class="nav-link  text-danger"  href="/login" (click)="logout()"><span>Logout</span></a>
+      </div>
+      </div>
+    </div>
+  </nav>
+</div>
+<div class="container text-center mt-4">
+  <div class="row justify-content-center">
+    <div class="card-body col-4">
+      <div class="card-header bg-light text-light" id="card-body">
+        <div>
+          <h5><span>Buscar por temperatura</span></h5>
+          <input class="form-control "type="text" name="temperatura" [(ngModel)]="temperatura">
+          <input class="btn btn-block bg-light text-primary mt-2" type="submit" name="buscarTemp" value="Buscar" (click)="mostrartemperatura()">
+        </div>
+        <div class="mt-3">
+          <h5><span>Buscar por humedad</span></h5>
+          <input class="form-control "type="text" name="humedad" [(ngModel)]="humedad">
+          <input class="btn btn-block bg-light text-primary mt-2" type="submit" name="buscarHum" value="Buscar" (click)="mostrarhumedad()">
+        </div>
+        <div class="mt-3">
+          <h5><span>Buscar por presión</span></h5>
+          <input class="form-control "type="text" name="presion" [(ngModel)]="presion">
+          <input class="btn btn-block bg-light text-primary mt-2" type="submit" name="buscarPres" value="Buscar" (click)="mostrarpresion()">
+        </div>
+        <div class="mt-3">
+          <h5><span>Buscar por dia</span></h5>
+          <input class="form-control "type="text" name="dia">
+          <input class="btn btn-block bg-light text-primary mt-2" type="submit" name="buscardia" value="Buscar">
+        </div>
+        <div class="mt-3">
+          <h5><span>Buscar por fecha</span></h5>
+          <input class="form-control "type="text" name="fecha">
+          <input class="form-control mt-2"type="text" name="fecha">
+          <input class="btn btn-block bg-light text-primary mt-2" type="submit" name="buscarFecha" value="Buscar">
+        </div>
+      </div>
+    </div>
+    <div class="card-body col-8" >
+        <div class="card-header bg-light text-light" id="card-body">
+        <h5><span>Historial de lecturas</span></h5>
+        <div>
+          <table class="table">
+            <thead class="ml-2">
+              <tr class="text-light">
+                <th scope="col">Temperatura</th>
+                <th scope="col">Humedad</th>
+                <th scope="col">Fecha</th>
+                <th scope="col">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scoope="row"></th>
+                <td></td>
+                <td></td>
+                <td class="form-group">
+                  <button class="btn btn-info ml-3">Detalles</button>
+                  <button class="btn btn-danger ml-2" type="button">Eliminar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

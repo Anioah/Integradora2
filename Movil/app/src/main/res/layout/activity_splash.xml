@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.Splash.SplashActivity"
+    android:background="#D54F2FE6"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blanco"
+        android:text="@string/estaci_n_meteorol_gica"
+        android:textAlignment="center"
+        android:textStyle="bold"
+        android:layout_centerInParent="true"
+        android:layout_above="@id/img_splash"
+        android:textSize="40sp"
+        />
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="350dp"
+        android:layout_height="350dp"
+        android:background="@drawable/splash"
+        android:layout_centerInParent="true"
+        android:id="@+id/img_splash"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/bienvenido"
+        android:textAlignment="center"
+        android:textColor="@color/blanco"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        android:layout_below="@id/img_splash"/>
+
+</RelativeLayout>
