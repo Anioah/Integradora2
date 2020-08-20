@@ -11,6 +11,9 @@
     <string name="menu_gallery">Gallery</string>
     <string name="menu_slideshow">Slideshow</string>
     <string name="bienvenido">Bienvenido</string>
-    <string name="estaci_n_meteorol_gica">Estación Meteorológica</string>
     <string name="registrarse">Registrarse</string>
+    <string name="login">Iniciar Sesión</string>
+    <string name="password">Password</string>
+    <string name="estacion_meteorologica">Estación Meteorológica</string>
+    <string name="usuario">Usuario</string>
 </resources>

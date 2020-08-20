@@ -88,6 +88,7 @@ public class LoginFragment extends Fragment {
                 e.printStackTrace();
             }
 
+            System.out.println(data);
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.POST,
@@ -114,6 +115,7 @@ public class LoginFragment extends Fragment {
                     new Response.ErrorListener() {
                         @Override
                         public void onErrorResponse(VolleyError error) {
+                            System.out.println(error);
                             Toast.makeText(getContext(),"Verifica los datos e intenta de nuevo",Toast.LENGTH_SHORT).show();
                         }
                     });
@@ -127,6 +129,7 @@ public class LoginFragment extends Fragment {
     private void pass(){
 
         credentials = getContext().getSharedPreferences("data", Context.MODE_PRIVATE);
+        System.out.println(credentials.getString("token", null));
         if(credentials.getString("token",null) != null) {
             //Toast.makeText(getContext(), credentials.getString("token",null), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getActivity(), MainActivity.class);
