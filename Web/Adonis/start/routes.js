@@ -50,3 +50,5 @@ Route.group(() => {
   Route.get('lecture','LecturaController.getLecture');
 
 }).middleware(['auth']);
+
+Route.get('test', function(){return "hola"});
