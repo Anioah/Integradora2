@@ -3,6 +3,8 @@ import { Router } from '@angular/router';
 import { environment } from '../../../environments/environment';
 import { HttpClientService } from 'src/app/services/http-client.service'
 import { Lectura } from 'src/app/models/lectura';
+import { Fecha } from 'src/app/models/fecha';
+import { Btdays } from 'src/app/models/btdays';
 
 @Component({
   selector: 'app-his-lec',
@@ -13,8 +15,11 @@ export class HisLecComponent {
 
   constructor(private router: Router, private http: HttpClientService) { }
 
+  public page:number;
   lectura_clase: Lectura = new Lectura();
   findLectura: Lectura = new Lectura();
+  findBtw: Btdays = new Btdays();
+  findDay: Fecha = new Fecha();
   upLectura: Lectura = new Lectura();
   lecturas_array: Lectura [] = [];
   public component;
@@ -41,6 +46,8 @@ export class HisLecComponent {
 
       this.component = true;
     }
+    this.resetComponents();
+    this.resetSearch();
   }
 
   mostrarHumedad(hum: any){
@@ -54,6 +61,40 @@ export class HisLecComponent {
     }).subscribe( humedad => { this.lecturas_array = humedad } );
 
       this.component = true;
+      this.resetSearch();
+    }
+  }
+
+  mostrarDia(date: any){
+    if(this.findDay.ano == null || this.findDay.mes == null || this.findDay.dia == null){
+      alert("Ingresa la fecha a verificar")
+    }else{
+      this.http.makeRequest('post', environment.api_url+'/perDate',{
+        body:{
+          year: this.findDay.ano,
+          month:this.findDay.mes,
+          day:this.findDay.dia
+      }
+    }).subscribe( fecha => { this.lecturas_array = fecha } );
+
+      this.component = true;
+      this.resetSearch();
+    }
+  }
+
+  mostrarFecha(date: any){
+    if(this.findBtw.fecha1 == null || this.findBtw.fecha2 == null){
+      alert("Ingresa la fecha a verificar")
+    }else{
+      this.http.makeRequest('post', environment.api_url+'/betweenDates',{
+        body:{
+          fecha1: this.findBtw.fecha1,
+          fecha2: this.findBtw.fecha2
+      }
+    }).subscribe( fecha => { this.lecturas_array = fecha } );
+
+      this.component = true;
+      this.resetSearch();
     }
   }
 
@@ -70,6 +111,27 @@ export class HisLecComponent {
   back(){
     this.component = true;
     this.detail = true;
+  }
+
+  showLectura(lectura: Lectura){
+    this.upLectura = lectura;
+    this.detail = false;
+    this.component = true;
+  }
+
+  resetComponents(){
+    this.component = null;
+  }
+
+  resetSearch(){
+    this.findLectura.humedad = null,
+    this.findLectura.temperatura = null;
+    this.findLectura.fecha = null;
+    this.findDay.ano = null;
+    this.findDay.mes = null;
+    this.findDay.dia = null;
+    this.findBtw.fecha1 = null;
+    this.findBtw.fecha2 = null;
   }
 
 }
