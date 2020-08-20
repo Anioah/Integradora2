@@ -1,49 +1,56 @@
 package com.example.estacinmeteorolgica.Fragments.Login;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.estacinmeteorolgica.Fragments.Registro.RegistroActivity;
 import com.example.estacinmeteorolgica.MainActivity;
 import com.example.estacinmeteorolgica.R;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class LoginFragment extends Fragment {
 
      Button btn_login;
+     EditText edtxt_user, edtxt_password;
      TextView txtRegister;
+     RequestQueue queue;
+     String url = "http://127.0.0.1:3333/login";
+     SharedPreferences credentials;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_login, container, false);
 
-        /*btn_login = view.findViewById(R.id.btnLogin);
-        edtemail = view.findViewById(R.id.edtUsuario);
-        edtpassword = view.findViewById(R.id.edtPassword);
+        btn_login = view.findViewById(R.id.btnLogin);
+        edtxt_user = view.findViewById(R.id.edtUsuario);
+        edtxt_password = view.findViewById(R.id.edtPassword);
+        txtRegister = view.findViewById(R.id.txtReg);
 
         queue = Volley.newRequestQueue(getContext());
 
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                login();
-            }
-        });*/
-
-        btn_login = view.findViewById(R.id.btnLogin);
-        txtRegister = view.findViewById(R.id.txtReg);
-
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getContext(), MainActivity.class);
-                startActivity(intent);
+                login();
             }
         });
         txtRegister.setOnClickListener(new View.OnClickListener() {
@@ -55,4 +62,77 @@ public class LoginFragment extends Fragment {
         });
         return view;
     }
+
+    private void login(){
+
+        boolean filledInputs = false;
+
+        if(!edtxt_user.getText().toString().equals("") && !edtxt_password.getText().toString().equals(""))
+        {
+            filledInputs = true;
+        }else{
+            Toast.makeText(getContext(),"Llena los campos correctamente", Toast.LENGTH_SHORT).show();
+        }
+
+        if(filledInputs){
+
+            final String user = edtxt_user.getText().toString();
+            final String password = edtxt_password.getText().toString();
+
+
+            JSONObject data = new JSONObject();
+            try {
+                data.put("email", user);
+                data.put("password", password);
+            }catch (JSONException e){
+                e.printStackTrace();
+            }
+
+
+            JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
+                    Request.Method.POST,
+                    url,
+                    data,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+                                credentials = getContext().getSharedPreferences("data", Context.MODE_PRIVATE);
+                                SharedPreferences.Editor editor = credentials.edit();
+
+                                editor.putString("token", response.getString("token"));
+                                editor.apply();
+
+                                pass();
+
+                            }
+                            catch (JSONException ex) {
+                                ex.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener() {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Toast.makeText(getContext(),"Verifica los datos e intenta de nuevo",Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+            queue.add(jsonObjectRequest);
+
+        } // if (filledInputs) END
+
+    }
+
+    private void pass(){
+
+        credentials = getContext().getSharedPreferences("data", Context.MODE_PRIVATE);
+        if(credentials.getString("token",null) != null) {
+            //Toast.makeText(getContext(), credentials.getString("token",null), Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            startActivity(intent);
+        }
+    }
+
+
 }
