@@ -11,7 +11,7 @@ import { Btdays } from 'src/app/models/btdays';
   templateUrl: './his-lec.component.html',
   styleUrls: ['./his-lec.component.css']
 })
-export class HisLecComponent {
+export class HisLecComponent implements OnInit{
 
   constructor(private router: Router, private http: HttpClientService) { }
 
@@ -25,6 +25,10 @@ export class HisLecComponent {
   public component;
   public detail = true;
 
+  ngOnInit(){
+    this.getData();
+  }
+
   //Metodo Log Out
   public logout(): void {
    localStorage.setItem('token','');
@@ -33,6 +37,15 @@ export class HisLecComponent {
   /*   window.location.reload(); */
   }
   //Fin Metodo Log Out
+
+  getData(){
+    this.http.makeRequest('get', environment.api_url + "/show",{
+      body: {
+
+      }}).subscribe((data)=>{ this.lecturas_array = data });
+
+      return this.lecturas_array;
+  }
 
   mostrarTemp(temp: any){
 

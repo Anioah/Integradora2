@@ -1,4 +1,4 @@
-<meta http-equiv="refresh" content="5">
+<meta http-equiv="refresh" content="10">
 <div class="container">
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -18,7 +18,7 @@
   </nav>
 </div>
 
-<div class="container mt-2" id="card-body">
+<div class="container mt-2 mr-12" id="card-body">
   <div class="text-light text-center">
     <div class="card-body">
         <div>
@@ -29,13 +29,13 @@
   <div class=" text-light mt-2" >
     <div class=" text-center">
       <div>
-        <h3><span>Temperatura</span></h3>
+        <h3><span>Última Temperatura registrada</span></h3>
       </div>
       <div *ngFor="let dato of datos" >
         <h4><span>{{dato.temperatura}}</span>°</h4>
       </div>
       <div class="mt-5">
-        <h3><span>Humedad</span></h3>
+        <h3><span>Última Humedad registrada</span></h3>
       </div>
       <div *ngFor="let dato of datos">
         <h4><span>{{dato.humedad}}</span>%</h4>
@@ -50,7 +50,7 @@
         <h3><span>Promedio Humedad</span></h3>
       </div>
       <div *ngFor="let promedio of promedios">
-        <h4><span>{{promedio.prom_humedad}}</span></h4>
+        <h4><span>{{promedio.prom_humedad}}</span>%</h4>
       </div>
   </div>
 </div>

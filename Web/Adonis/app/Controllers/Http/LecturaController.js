@@ -87,7 +87,7 @@ class LecturaController {
         const data = await request.all();
 
         try {
-            const lecturas = await Lectura.lecturaMongo.find({"temperatura": { $gte: data.temperatura, $lte: data.temperatura + .99  }});
+            const lecturas = await Lectura.lecturaMongo.find({"temperatura": { $gte: data.temperatura, $lte: data.temperatura + .99  }}).sort({"fecha":-1});
 
             if(lecturas == ""){
                 return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
@@ -108,7 +108,7 @@ class LecturaController {
         const data = await request.all();
 
         try {         
-        const lecturas = await Lectura.lecturaMongo.find({"humedad" : { $gte: data.humedad, $lte: data.humedad + .99  }});
+        const lecturas = await Lectura.lecturaMongo.find({"humedad" : { $gte: data.humedad, $lte: data.humedad + .99  }}).sort({"fecha":-1});
 
         if(lecturas == ""){
             return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
@@ -129,7 +129,7 @@ class LecturaController {
         const data = await request.all();
 
         try {
-            const lecturas = await Lectura.lecturaMongo.find({"presion": { $gte: data.presion, $lte: data.presion + .99 }});
+            const lecturas = await Lectura.lecturaMongo.find({"presion": { $gte: data.presion, $lte: data.presion + .99 }}).sort({"fecha":-1});
 
             if(lecturas == ""){
                 return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
@@ -153,7 +153,7 @@ class LecturaController {
         var fecha2 = data.year + "/" + data.month + "/" +(data.day + 1);
 
         try {
-            const lecturas = await Lectura.lecturaMongo.find({fecha: {$gte: new Date(fecha1), $lte: new Date(fecha2)} });
+            const lecturas = await Lectura.lecturaMongo.find({fecha: {$gte: new Date(fecha1), $lte: new Date(fecha2)} }).sort({"fecha":-1});
 
             if(lecturas == ""){
                 return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
@@ -174,7 +174,7 @@ class LecturaController {
         const data = await request.all();
 
         try {
-            const lecturas = await Lectura.lecturaMongo.find({fecha: { $gte: new Date(data.fecha1), $lte: new Date(data.fecha2) }});
+            const lecturas = await Lectura.lecturaMongo.find({fecha: { $gte: new Date(data.fecha1), $lte: new Date(data.fecha2) }}).sort({"fecha":-1});
 
             if(lecturas == ""){
                 return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
@@ -250,19 +250,19 @@ class LecturaController {
             const promTemp = await Lectura.lecturaMongo.aggregate([
                 {$sort: {"fecha": -1}},
                 {$limit: 5},
-               {$project: { "Promedio" : { $avg: "$temperatura" }} }
+               {$group: { _id: null , "Promedio" : { $avg: "$temperatura" }} }
             ])
         
             const promHum = await Lectura.lecturaMongo.aggregate([
                 {$sort: {"fecha": -1}},
                 {$limit: 5},
-               {$project: { "Promedio" : { $avg: "$humedad" }} }
+               {$group: { _id: null , "Promedio" : { $avg: "$humedad"}} }
             ])
     
             const promPres = await Lectura.lecturaMongo.aggregate([
                 {$sort: {"fecha": -1}},
                 {$limit: 5},
-               {$project: { "Promedio" : { $avg: "$presion" }} }
+               {$project: {_id: null,  "Promedio" : { $avg: "$presion" }} }
             ])
         
             // Extrayendo promedio de ArrayObject
