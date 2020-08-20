@@ -17,18 +17,19 @@
   </nav>
 </div>
 
-<div class="container mt-2">
-  <div class="card bg-primary text-light text-center">
+<div class="mt-2">
+  <div class="text-light text-center">
     <div class="card-body">
         <div>
-          <h1>Estación Meteorologica</h1>
+          <h1>Lectura en Tiempo Real</h1>
         </div>
     </div>
   </div>
-  <div class="card bg-success text-light mt-2">
-    <div class="card-body text-center">
+  <div class="container text-light mt-2">
+    <div class="card-body text-center" id="login">
       <div>
         <h3><span>Temperatura</span></h3>
+        <img src="assets/" alt="">
       </div>
       <div *ngFor="let dato of datos" >
         <h4><span>{{dato.temperatura}}</span>°</h4>
