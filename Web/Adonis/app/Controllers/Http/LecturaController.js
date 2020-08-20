@@ -15,10 +15,10 @@ class LecturaController {
             await Lectura.mongoose.connect('mongodb+srv://Anioah:anioah123@act1-m5bsf.mongodb.net/proyecto_mzz?retryWrites=true&w=majority', {useNewUrlParser: true, useMongoClient: true, useUnifiedTopology: true});
         } catch (error) { } 
 
-        try {
+       /* try {
             // to local
             await Lectura.mongoose.connect('mongodb://127.0.0.1:27017/proyecto_mzz', {useNewUrlParser: true, useMongoClient: true, useUnifiedTopology: true, connectTimeoutMS: 5000});
-        } catch (error) { }
+        } catch (error) { } */
             
     }
 
