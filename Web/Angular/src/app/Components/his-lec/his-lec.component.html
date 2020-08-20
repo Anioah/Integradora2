@@ -26,27 +26,27 @@
       <div class="card-header bg-light text-light" id="card-body">
         <div>
           <h5><span>Buscar por temperatura</span></h5>
-          <input class="form-control" type="number" [(ngModel)]="findLectura.temperatura">
-          <input class="btn btn-block bg-light text-primary mt-2" type="submit"  value="Buscar" (click)="mostrarTemp(findLectura.temperatura)">
+          <input class="form-control text-center" type="number" [(ngModel)]="findLectura.temperatura">
+          <input class="btn btn-block bg-light text-primary mt-2 text-center" type="submit"  value="Buscar" (click)="mostrarTemp(findLectura.temperatura)">
         </div>
         <div class="mt-3">
           <h5><span>Buscar por humedad</span></h5>
-          <input class="form-control "type="number" name="humedad" [(ngModel)]="findLectura.humedad">
+          <input class="form-control text-center" type="number" name="humedad" [(ngModel)]="findLectura.humedad">
           <input class="btn btn-block bg-light text-primary mt-2" type="submit" name="buscarHum" value="Buscar" (click)="mostrarHumedad(findLectura.humedad)">
         </div>
         <div class="mt-3">
           <h5><span>Buscar por dia</span></h5>
           <div class="row">
-          <input class="form-control col-4 offset-1" type="number" name="dia" [(ngModel)]="findDay.ano" placeholder="Año">
-          <input class="form-control col-3" type="number" name="dia" [(ngModel)]="findDay.mes" placeholder="Mes">
-          <input class="form-control col-3" type="number" name="dia" [(ngModel)]="findDay.dia" placeholder="Dia">
+          <input class="form-control col-4 offset-1 text-center" type="number" name="dia" [(ngModel)]="findDay.ano" placeholder="Año">
+          <input class="form-control col-3 text-center" type="number" name="dia" [(ngModel)]="findDay.mes" placeholder="Mes">
+          <input class="form-control col-3 text-center" type="number" name="dia" [(ngModel)]="findDay.dia" placeholder="Dia">
           </div>
           <input class="btn btn-block bg-light text-primary mt-2" type="submit" name="buscardia" value="Buscar" (click)="mostrarDia(findDay)">
         </div>
         <div class="mt-3">
           <h5><span>Buscar por fecha</span></h5>
-          <input class="form-control "type="text" name="fecha" [(ngModel)]="findBtw.fecha1">
-          <input class="form-control mt-2"type="text" name="fecha" [(ngModel)]="findBtw.fecha2">
+          <input class="form-control text-center" type="text" name="fecha" [(ngModel)]="findBtw.fecha1" placeholder="yyyy/mm/dd">
+          <input class="form-control mt-2 text-center" type="text" name="fecha" [(ngModel)]="findBtw.fecha2" placeholder="yyyy/mm/dd">
           <input class="btn btn-block bg-light text-primary mt-2" type="submit" name="buscarFecha" value="Buscar" (click)="mostrarFecha(findBtw)">
         </div>
       </div>
