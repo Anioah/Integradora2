@@ -46,4 +46,7 @@ Route.group(() => {
   //get last average
   Route.get('average','LecturaController.getAverage');
 
+  //get last lecture
+  Route.get('lecture','LecturaController.getLecture');
+
 }).middleware(['auth']);
