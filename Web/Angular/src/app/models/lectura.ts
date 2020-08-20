@@ -1,8 +1,7 @@
 export class Lectura {
-  id: string;
+  _id: string;
   temperatura:number;
   humedad:number;
-  presion:number;
   latitud:number;
   longitud:number;
   fecha:string;
