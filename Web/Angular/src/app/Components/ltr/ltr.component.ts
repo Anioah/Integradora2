@@ -88,7 +88,18 @@ export class LTRComponent implements OnInit {
       return this.datos;
   }
 
+  calculateAverage(){
+    this.http.makeRequest('get', environment.api_url + "/calculateAverage",{
+      body:{
+
+      }
+    }).subscribe()
+  }
+
   getAverage(){
+
+    this.calculateAverage();
+    
     this.http.makeRequest('get', environment.api_url + "/average",{
       body: {
 
