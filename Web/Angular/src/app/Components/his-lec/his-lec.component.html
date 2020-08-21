@@ -88,22 +88,34 @@
   <div class="container mt-1 text-center" *ngSwitchCase="false">
     <div class="card text-light" id="deg">
       <div class="card-body">
-        <h3 class="card-title">Lectura: {{upLectura.identificador}}</h3>
+        <h3 class="card-title">Detalles de la Lectura</h3>
       </div>
     </div>
     <div class="card-body text-light mt-2" id="master">
-    <h4 class="mt-6">
-    <table>
-    <td> Temperatura: {{upLectura.temperatura}}</td>
-      <td>Humedad: {{upLectura.humedad}}</td>
-      <td>Latitud: {{upLectura.latitud}}</td>
-      <td>Longitud: {{upLectura.longitud}}</td>
-      <td>Fecha: {{upLectura.fecha}}</td>
+    <h5 class="mt-12 mb-4">
+    <table class="table">
+      <thead class="ml-2">
+        <tr class="text-light">
+          <th>Temperatura</th>
+          <th>Humedad</th>
+          <th>Latitud</th>
+          <th>Longitud</th>
+          <th>Fecha</th>
+          <th>Acción</th>
+        </tr>
+      </thead>
+      <tbody class="text-light">
+      <td>{{upLectura.temperatura}}</td>
+      <td>{{upLectura.humedad}}</td>
+      <td>{{upLectura.latitud}}</td>
+      <td>{{upLectura.longitud}}</td>
+      <td>{{upLectura.fecha}}</td>
+      <td>
+        <button class="btn btn-light text-info mr-8 mt-12" (click)="back()">regresar</button>
+      </td>  
+    </tbody>
     </table>    
-    </h4>
-    <div>
-      <button class="btn btn-warning text-light" (click)="back()">regresar</button>
-    </div>
+    </h5>
     </div>
     
   </div>
