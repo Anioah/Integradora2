@@ -37,19 +37,6 @@
                 />
 
             <EditText
-                android:id="@+id/edtcorreo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:backgroundTint="@android:color/darker_gray"
-                android:ems="10"
-                android:hint="Nombre de usuario"
-                android:textColorHint="@color/blanco"
-                android:inputType="text"
-                android:textColor="@color/blanco"
-                android:paddingLeft="5dp" />
-            <EditText
                 android:id="@+id/edtNomUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,14 +45,29 @@
                 android:layout_marginTop="10dp"
                 android:backgroundTint="@android:color/darker_gray"
                 android:ems="10"
-                android:hint="Correo"
+                android:hint="@string/nombre_de_usuario"
                 android:textColorHint="@color/blanco"
                 android:inputType="text"
                 android:textColor="@color/blanco"
-                android:paddingLeft="5dp" />
+                android:paddingStart="5dp" />
 
             <EditText
-                android:id="@+id/edtPassword"
+                android:id="@+id/edtcorreo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:backgroundTint="@android:color/darker_gray"
+                android:ems="10"
+                android:hint="@string/correo"
+                android:textColorHint="@color/blanco"
+                android:inputType="text"
+                android:textColor="@color/blanco"
+                android:paddingStart="5dp" />
+
+
+            <EditText
+                android:id="@+id/edt_Password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
@@ -77,7 +79,7 @@
                 android:textColor="@color/blanco"
                 android:textColorHint="@color/blanco"
                 android:inputType="textPassword"
-                android:paddingLeft="5dp" />
+                android:paddingStart="5dp" />
 
             <Button
                 android:id="@+id/btnRegistro"

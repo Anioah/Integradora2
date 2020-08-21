@@ -16,4 +16,6 @@
     <string name="password">Password</string>
     <string name="estacion_meteorologica">Estación Meteorológica</string>
     <string name="usuario">Usuario</string>
+    <string name="correo">Correo</string>
+    <string name="nombre_de_usuario">Nombre de usuario</string>
 </resources>
