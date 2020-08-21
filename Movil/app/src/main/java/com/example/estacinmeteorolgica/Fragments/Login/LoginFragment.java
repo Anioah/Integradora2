@@ -23,6 +23,7 @@ import com.android.volley.toolbox.Volley;
 import com.example.estacinmeteorolgica.Fragments.Registro.RegistroActivity;
 import com.example.estacinmeteorolgica.MainActivity;
 import com.example.estacinmeteorolgica.R;
+import com.example.estacinmeteorolgica.Url;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -33,7 +34,8 @@ public class LoginFragment extends Fragment {
      EditText edtxt_user, edtxt_password;
      TextView txtRegister;
      RequestQueue queue;
-     String url = "http://127.0.0.1:3333/login";
+     Url url;
+     String finalUrl = url.getUrl() + "/login";
      SharedPreferences credentials;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -50,6 +52,7 @@ public class LoginFragment extends Fragment {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+               // System.out.println(finalUrl);
                 login();
             }
         });
@@ -92,7 +95,7 @@ public class LoginFragment extends Fragment {
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.POST,
-                    url,
+                    finalUrl,
                     data,
                     new Response.Listener<JSONObject>() {
                         @Override
