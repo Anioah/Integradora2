@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/RecyclerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/temadegradado">
+
+    <RelativeLayout
+        android:id="@+id/encabezado"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/temadegradadoinverso"
+        android:padding="16sp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/geolocalization_historial"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8sp"
+        android:layout_below="@id/encabezado"/>
+
+</RelativeLayout>
