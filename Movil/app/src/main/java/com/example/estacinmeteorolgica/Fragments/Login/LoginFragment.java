@@ -52,7 +52,7 @@ public class LoginFragment extends Fragment {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               // System.out.println(finalUrl);
+                System.out.println(finalUrl);
                 login();
             }
         });
@@ -92,10 +92,11 @@ public class LoginFragment extends Fragment {
             }
 
             System.out.println(data);
+            String url2 ="http://192.168.43.95:3333/login";
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.POST,
-                    finalUrl,
+                    url2,
                     data,
                     new Response.Listener<JSONObject>() {
                         @Override

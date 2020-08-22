@@ -18,4 +18,14 @@
     <string name="usuario">Usuario</string>
     <string name="correo">Correo</string>
     <string name="nombre_de_usuario">Nombre de usuario</string>
+    <string name="permisos_inactivos">Permisos Inactivos</string>
+    <string name="status">Status</string>
+    <string name="permission">Permission</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="fecha">fecha</string>
+    <string name="temperatura">temperatura</string>
+    <string name="humedad">humedad</string>
+    <string name="latitud">latitud</string>
+    <string name="longitud">longitud</string>
 </resources>

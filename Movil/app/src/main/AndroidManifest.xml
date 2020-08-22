@@ -3,6 +3,7 @@
     package="com.example.estacinmeteorolgica">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +12,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Fragments.Registro.RegistroActivity"
+        <activity android:name=".MainActivity2"></activity>
+        <activity
+            android:name=".Fragments.Permisos.PuentePermisos"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Fragments.Permisos.PermisosActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".Fragments.Registro.RegistroActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".Fragments.Splash.SplashActivity"
@@ -28,7 +37,7 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

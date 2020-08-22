@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/temadegradado"
+    android:orientation="vertical"
+    android:padding="8sp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/temadegradadoinverso"
+        android:padding="8sp">
+
+        <TextView
+            android:id="@+id/txtvw_hum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/humedad"
+            android:textStyle="bold"
+            android:textColor="@color/blanco"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="16sp"/>
+
+        <TextView
+            android:id="@+id/txtvw_temp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/temperatura"
+            android:textColor="@color/blanco"
+            android:textStyle="bold"
+            android:layout_alignParentStart="true"
+            android:layout_margin="16sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/temadegradado"
+        android:paddingHorizontal="120dp"
+        android:paddingVertical="8dp">
+
+        <TextView
+            android:id="@+id/txtvw_fecha2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/fecha"
+            android:textSize="16sp"
+            android:textColor="@color/blanco"
+            android:textStyle="bold"
+            android:paddingBottom="8sp"/>
+
+    </RelativeLayout>
+
+</LinearLayout>
