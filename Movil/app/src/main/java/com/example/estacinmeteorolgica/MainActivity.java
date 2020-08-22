@@ -1,5 +1,6 @@
 package com.example.estacinmeteorolgica;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Menu;
@@ -23,7 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 
-public class MainActivity extends AppCompatActivity implements Detalle {
+public class MainActivity extends AppCompatActivity {
 
     private AppBarConfiguration mAppBarConfiguration;
 
@@ -43,8 +44,8 @@ public class MainActivity extends AppCompatActivity implements Detalle {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
+                startActivity(intent);
             }
         });
 
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements Detalle {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         mAppBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
+                R.id.nav_home, R.id.nav_slideshow)
                 .setDrawerLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
@@ -61,15 +62,15 @@ public class MainActivity extends AppCompatActivity implements Detalle {
         NavigationUI.setupWithNavController(navigationView, navController);
 
 
-        RecyclerFragment recyclerFragment= new RecyclerFragment();
+/*        RecyclerFragment recyclerFragment= new RecyclerFragment();
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.drawer_layout, recyclerFragment,null);
-        fragmentTransaction.commit();
+        fragmentTransaction.commit();*/
     }
 
 
-    @Override
+/*    @Override
     public void sendDetalle(LectureData data) {
         descriptionFragment = new DescripcionFragment();
         Bundle bundleSerializable = new Bundle();
@@ -80,7 +81,7 @@ public class MainActivity extends AppCompatActivity implements Detalle {
                 .beginTransaction()
                 .replace(R.id.RecyclerLayout,descriptionFragment).addToBackStack(null)
                 .commit();
-    }
+    } */
 
 
     // Navigation Drawer Config

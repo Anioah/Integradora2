@@ -36,8 +36,10 @@ import java.util.ArrayList;
         @Override
         public void onBindViewHolder(@NonNull ViewHolderData holder, int position) {
 
-            holder.temperatura.setText(historial.get(position).getTemperatura());
-            holder.humedad.setText(historial.get(position).getHumedad());
+            String temp = "Temperatura: " + historial.get(position).getTemperatura().toString();
+            String hum = "Humedad: " + historial.get(position).getHumedad().toString();
+            holder.temperatura.setText(temp);
+            holder.humedad.setText(hum);
             //holder.latitud.setText(historial.get(position).getLatitud());
             //holder.longitud.setText(historial.get(position).getLongitud());
             holder.fecha.setText(historial.get(position).getTiempo());

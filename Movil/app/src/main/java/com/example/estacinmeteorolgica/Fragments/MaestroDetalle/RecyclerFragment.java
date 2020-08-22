@@ -1,6 +1,7 @@
 package com.example.estacinmeteorolgica.Fragments.MaestroDetalle;
 
 import android.app.Activity;
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.estacinmeteorolgica.R;
@@ -50,7 +52,7 @@ public class RecyclerFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public String getdata_url = "http://192.168.1.66:3333/show";
+    public String getdata_url = "http://192.168.43.95:3333/show";
     private RequestQueue queue = null;
     private JsonObjectRequest request;
     private RecyclerView geolocalization_historial;
@@ -109,7 +111,65 @@ public class RecyclerFragment extends Fragment {
         userToken = credentials.getString("token",null);
 
 
-        request = new JsonObjectRequest(Request.Method.GET, getdata_url, null, new Response.Listener<JSONObject>() {
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
+                Request.Method.GET,
+                getdata_url,
+                null,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        // Do something with response
+                        //mTextView.setText(response.toString());
+
+                        // Process the JSON
+                        try{
+                            // Loop through the array elements
+                            for(int i=0;i<response.length();i++){
+                                // Get current json object
+                                JSONObject jsonObject = response.getJSONObject(i);
+                                LectureData datos = new LectureData();
+
+                                //  if(jsonObject.getString("nombre").equals(nombre)) {
+                                datos.setTemperatura(jsonObject.getString("temperatura"));
+                                datos.setHumedad(jsonObject.getString("humedad"));
+                                datos.setLatitud(jsonObject.getString("latitud"));
+                                datos.setLongitud(jsonObject.getString("longitud"));
+                                datos.setTiempo(jsonObject.getString("fecha"));
+
+                                historial.add(datos);
+
+                                geolocalization_historial.setAdapter(adapt);
+                                queue.start();
+                            }
+                        }catch (JSONException e){
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener(){
+                    @Override
+                    public void onErrorResponse(VolleyError error){
+                        // Do something when error occurred
+
+
+                    }
+                }
+        ){
+            @Override
+            public Map<String, String> getHeaders() {
+                String token = "Bearer " + userToken;
+                Map<String, String> params = new HashMap<>();
+                params.put("Accept", "application/json");
+                params.put("Authorization", token);
+                params.put("Content-Type", "application/json");
+                return params;
+            }};
+
+        // Add JsonArrayRequest to the RequestQueue
+        queue.add(jsonArrayRequest);
+
+
+        /*request = new JsonObjectRequest(Request.Method.GET, getdata_url, null, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
 
@@ -158,7 +218,7 @@ public class RecyclerFragment extends Fragment {
             return params;
         }};
         queue.add(request);
-
+*/
         adapt.setClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

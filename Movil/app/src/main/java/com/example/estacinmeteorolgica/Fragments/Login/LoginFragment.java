@@ -92,7 +92,7 @@ public class LoginFragment extends Fragment {
             }
 
             System.out.println(data);
-            String url2 ="http://192.168.1.66:3333/login";
+            String url2 ="http://192.168.43.95:3333/login";
 
             JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(
                     Request.Method.POST,

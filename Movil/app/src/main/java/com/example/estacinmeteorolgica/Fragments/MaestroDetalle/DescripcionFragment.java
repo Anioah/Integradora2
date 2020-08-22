@@ -70,8 +70,8 @@ public class DescripcionFragment extends Fragment {
         tv_fecha = view.findViewById(R.id.txtvw_fecha);
         tv_latitud = view.findViewById(R.id.txtvw_latitud);
         tv_longitud = view.findViewById(R.id.txtvw_longitud);
-        tv_temp = view.findViewById(R.id.txtvw_longitud);
-        tv_hum = view.findViewById(R.id.txtvw_longitud);
+        tv_temp = view.findViewById(R.id.txtvw_temperatura);
+        tv_hum = view.findViewById(R.id.txtvw_humedad);
 
         Bundle objectData = getArguments();
         LectureData data = null;
@@ -79,11 +79,11 @@ public class DescripcionFragment extends Fragment {
         if(objectData != null)
         {
             data = (LectureData) objectData.getSerializable("object");
-            tv_temp.setText(data.getTemperatura());
-            tv_hum.setText(data.getHumedad());
+            tv_temp.setText("Temperatura: " + data.getTemperatura().toString());
+            tv_hum.setText("Humedad: " + data.getHumedad().toString());
             tv_fecha.setText(data.getTiempo());
-            tv_latitud.setText(data.getLatitud());
-            tv_longitud.setText(data.getLongitud());
+            tv_latitud.setText("Latitud: " + data.getLatitud().toString());
+            tv_longitud.setText("Longitud: " + data.getLongitud());
         }
 
         return view;
