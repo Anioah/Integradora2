@@ -25,7 +25,7 @@ export class AuthHttpInterceptor implements HttpInterceptor{
 
     private static addAuthenticationToken(request: HttpRequest<any>): HttpRequest<any> {
         // If you are calling an outside domain then do not add the token.
-        if(!request.url.match(/http:\/\/127.0.0.1:3333\//))
+        if(!request.url.match('100.26.102.200/api/'))
         {
             return request;
         }

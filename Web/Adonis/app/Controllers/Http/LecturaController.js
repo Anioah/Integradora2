@@ -2,7 +2,9 @@
 
 const Lectura = use('App/Models/Lectura');
 
-const Promedio = use('App/Models/Promedio')
+const MysqlLectura = use('App/Models/MysqlLectura');
+
+const Promedio = use('App/Models/Promedio');
 
 class LecturaController {
 
@@ -39,13 +41,13 @@ class LecturaController {
 
       try {
         let lectura = await Lectura.lecturaMongo.create({
-            _id : new Lectura.mongoose.Types.ObjectId(),
-            temperatura : data.temperatura,
-            humedad : data.humedad,
-            latitud : data.latitud,
-            longitud : data.longitud,
-            fecha: Date.now(),
-            identificador: getIdentificador
+            "_id" : new Lectura.mongoose.Types.ObjectId(),
+            "temperatura" : data.temperatura,
+            "humedad" : data.humedad,
+            "latitud" : data.latitud,
+            "longitud" : data.longitud,
+            "fecha": Date.now(),
+            "identificador" : getIdentificador
           });
 
         return response.status(200).json({
@@ -153,7 +155,7 @@ class LecturaController {
         var fecha2 = data.year + "/" + data.month + "/" +(data.day + 1);
 
         try {
-            const lecturas = await Lectura.lecturaMongo.find({fecha: {$gte: new Date(fecha1), $lte: new Date(fecha2)} }).sort({"fecha":-1});
+            const lecturas = await Lectura.lecturaMongo.find({"fecha": {$gte: new Date(fecha1), $lte: new Date(fecha2)} }).sort({"fecha":-1});
 
             if(lecturas == ""){
                 return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
@@ -232,7 +234,7 @@ class LecturaController {
         const data = await request.all();
 
         try {
-            return await Lectura.lecturaMongo.findOneAndRemove({_id: Lectura.mongoose.Types.ObjectId(data._id)});;
+            return await Lectura.lecturaMongo.findOneAndRemove({"_id": Lectura.mongoose.Types.ObjectId(data._id)});;
         } catch (error) {
             return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
         }
@@ -324,7 +326,217 @@ class LecturaController {
 
     
     }
+
+    // Mysql Alternative
+
+    async newMysqlLecture({request,response}){
+
+        var lectura = request.all();
+
+        try {
+            const {temperatura, humedad, latitud, longitud} = request.only([
+                'temperatura',
+                'humedad',
+                'latitud',
+                'longitud'
+            ]);
+            
+            await MysqlLectura.create({
+                temperatura,
+                humedad,
+                latitud,
+                longitud
+            })
     
+            return response.status(200).json({
+                status:'OK',
+                message:'Recopilación de datos guardada exitosamente',
+                data:{
+                    "lectura": lectura
+                }
+            });   
+        } catch (error) {
+              return response.status(400).json({message: "Recopilación de datos no exitosa, intente nuevamente"})
+            }
+
+    }
+
+    async showMysql({request,response}){
+        try {
+            var lectura = await MysqlLectura.query().select('mysql_lecturas.*').orderBy('id', 'desc').fetch();
+            return response.status(200).json(lectura);
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+    }
+
+    async getMysqlLecture({request,response}){
+        try {
+            var lectura = await MysqlLectura.last();
+            return response.status(200).json(lectura);
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+    }
+
+    async deleteMysql({request,response}){
+
+        const data = await request.all();
+
+        const lectura = await MysqlLectura.find(data.id);
+
+        await MysqlLectura.query().where('id',data.id).delete();
+
+        try {
+            return response.status(200).json({message: "Lectura borrada correctamente", lectura});
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+       
+    }
+
+    async mysqlPerTemperatures({request,response}){
+
+        const data = await request.all();
+        const temp2 = data.temperatura + .99;
+
+        try {
+            const lecturas = await MysqlLectura.query().whereBetween("temperatura", [data.temperatura,temp2] ).orderBy('id', 'desc').fetch();
+
+            if(lecturas == ""){
+                return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
+            }
+            return response.status(200).json(lecturas);
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+
+    }
+
+    async mysqlPerHumedity({request,response}){
+
+        const data = await request.all();
+        const hum2 = data.humedad + .99;
+
+        try {
+            const lecturas = await MysqlLectura.query().whereBetween("humedad", [data.humedad,hum2] ).orderBy('id', 'desc').fetch();
+
+            if(lecturas == ""){
+                return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
+            }
+            return response.status(200).json(lecturas);
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+
+    }
+
+    async mysqlPerDate({request,response}){
+
+        const data = await request.all();
+
+        var fecha1 = data.year + "/" + data.month + "/" + data.day;
+        var fecha2 = data.year + "/" + data.month + "/" +(data.day + 1);
+
+        try {
+            const lecturas = await MysqlLectura.query().whereBetween('created_at',[fecha1,fecha2]).orderBy('id','desc').fetch();
+
+            if(lecturas == ""){
+                return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
+            }
+            return response.status(200).json(lecturas);
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+
+    }
+
+    async mysqlBetweenDates({request,response}){
+
+        const data = await request.all();
+
+        try {
+            const lecturas = await MysqlLectura.query().whereBetween('created_at',[fecha1,fecha2]).orderBy('id','desc').fetch();
+
+            if(lecturas == ""){
+                return response.status(200).json({message: "No hay registros con ese parámetro de búsqueda"});
+            }
+            return response.status(200).json(lecturas);
+        } catch (error) {
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+
+    }
+
+    async mysqlMakePromedio({response}){
+
+        var temp = 0;
+        const promedio = new Promedio();
+
+    
+        try {
+            const promTemp = await MysqlLectura.query().select('mysql_lecturas.*').orderBy('id','desc').limit(5).fetch();
+
+            for (let index = 0; index < promTemp.length; index++) {
+                const element = 5;
+        
+                temp = element;
+            }
+
+            //return promTemp;
+
+            return response.json(temp);
+        
+           /* const promHum = await Lectura.lecturaMongo.aggregate([
+                {$sort: {"fecha": -1}},
+                {$limit: 5},
+               {$group: { _id: null , "Promedio" : { $avg: "$humedad"}} }
+            ])
+    
+            const promPres = await Lectura.lecturaMongo.aggregate([
+                {$sort: {"fecha": -1}},
+                {$limit: 5},
+               {$project: {_id: null,  "Promedio" : { $avg: "$presion" }} }
+            ])*/
+        
+            // Extrayendo promedio de ArrayObject
+        
+            var hum, presion;
+        
+            for (let index = 0; index < promTemp.length; index++) {
+                const element = promTemp[index];
+        
+                temp = element.Promedio
+            }
+        
+            for (let index = 0; index < promHum.length; index++) {
+                const element = promHum[index];
+        
+                hum = element.Promedio
+            }
+    
+            for (let index = 0; index < promPres.length; index++){
+                const element = promPres[index];
+    
+                presion = element.Promedio
+            }
+        
+            // Mandando datos a MYSQL
+        
+            promedio.prom_temperatura = temp
+            promedio.prom_humedad = hum
+            promedio.prom_presion = presion
+        
+            await promedio.save()
+        
+            return response.status(200).json(promedio)
+
+        } catch (error) {
+            return error;
+            return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
+        }
+    
+    }
 
 
 }

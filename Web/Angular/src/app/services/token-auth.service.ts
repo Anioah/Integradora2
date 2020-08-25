@@ -25,6 +25,8 @@ export class TokenAuthService {
     if(!validation){
       this.router.navigate(['/login']);
     }
+
+    console.log(validation);
     return validation !== false;
   }
 }
