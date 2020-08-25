@@ -372,7 +372,7 @@ class LecturaController {
 
     async getMysqlLecture({request,response}){
         try {
-            var lectura = await MysqlLectura.last();
+            var lectura = [await MysqlLectura.last()];
             return response.status(200).json(lectura);
         } catch (error) {
             return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
@@ -470,69 +470,28 @@ class LecturaController {
 
     async mysqlMakePromedio({response}){
 
-        var temp = 0;
         const promedio = new Promedio();
 
+        var temp, hum;
     
         try {
-            const promTemp = await MysqlLectura.query().select('mysql_lecturas.*').orderBy('id','desc').limit(5).fetch();
-
-            for (let index = 0; index < promTemp.length; index++) {
-                const element = 5;
-        
-                temp = element;
-            }
-
-            //return promTemp;
-
-            return response.json(temp);
-        
-           /* const promHum = await Lectura.lecturaMongo.aggregate([
-                {$sort: {"fecha": -1}},
-                {$limit: 5},
-               {$group: { _id: null , "Promedio" : { $avg: "$humedad"}} }
-            ])
-    
-            const promPres = await Lectura.lecturaMongo.aggregate([
-                {$sort: {"fecha": -1}},
-                {$limit: 5},
-               {$project: {_id: null,  "Promedio" : { $avg: "$presion" }} }
-            ])*/
-        
-            // Extrayendo promedio de ArrayObject
-        
-            var hum, presion;
-        
-            for (let index = 0; index < promTemp.length; index++) {
-                const element = promTemp[index];
-        
-                temp = element.Promedio
-            }
-        
-            for (let index = 0; index < promHum.length; index++) {
-                const element = promHum[index];
-        
-                hum = element.Promedio
-            }
-    
-            for (let index = 0; index < promPres.length; index++){
-                const element = promPres[index];
-    
-                presion = element.Promedio
-            }
-        
+            
+            let promTemp = await MysqlLectura.query().orderBy('id','desc').limit(5).getAvg("temperatura");
+            let promHum = await MysqlLectura.query().orderBy('id','desc').limit(5).getAvg("humedad");
+   
             // Mandando datos a MYSQL
-        
+
+            temp = promTemp;
+            hum = promHum;
+
             promedio.prom_temperatura = temp
             promedio.prom_humedad = hum
-            promedio.prom_presion = presion
         
             await promedio.save()
         
             return response.status(200).json(promedio)
 
         } catch (error) {
-            return error;
             return response.status(400).json({message: "No fue procesada la operación de manera satisfactoria, intente nuevamente"});
         }
     

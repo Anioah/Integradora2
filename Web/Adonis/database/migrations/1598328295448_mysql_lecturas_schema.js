@@ -9,8 +9,8 @@ class MysqlLecturasSchema extends Schema {
       table.increments()
       table.float('temperatura')
       table.float('humedad')
-      table.float('latitud')
-      table.float('longitud')
+      table.float('latitud',[8,5])
+      table.float('longitud',[8,5])
       table.timestamps()
     })
   }

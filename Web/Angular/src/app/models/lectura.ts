@@ -4,6 +4,6 @@ export class Lectura {
   humedad:number;
   latitud:number;
   longitud:number;
-  fecha:string;
+  created_at:string;
   identificador: number;
 }

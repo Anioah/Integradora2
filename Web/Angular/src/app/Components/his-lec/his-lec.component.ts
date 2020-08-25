@@ -39,7 +39,7 @@ export class HisLecComponent implements OnInit{
   //Fin Metodo Log Out
 
   getData(){
-    this.http.makeRequest('get', environment.api_url + "/show",{
+    this.http.makeRequest('get', environment.api_url + "/showMysql",{
       body: {
 
       }}).subscribe((data)=>{ this.lecturas_array = data });
@@ -52,7 +52,7 @@ export class HisLecComponent implements OnInit{
     if(this.findLectura.temperatura == null){
       alert("Ingresa la temperatura a verificar")
     }else{
-      this.http.makeRequest('post', environment.api_url+'/perTemperature',{
+      this.http.makeRequest('post', environment.api_url+'/mysqlPerTemperature',{
         body:{
           temperatura: this.findLectura.temperatura
       }}).subscribe( temperatura => { this.lecturas_array = temperatura } );
@@ -67,7 +67,7 @@ export class HisLecComponent implements OnInit{
     if(this.findLectura.humedad == null){
       alert("Ingresa la humedad a verificar")
     }else{
-      this.http.makeRequest('post', environment.api_url+'/perHumedity',{
+      this.http.makeRequest('post', environment.api_url+'/mysqlPerHumedity',{
         body:{
           humedad: this.findLectura.humedad
       }
@@ -82,7 +82,7 @@ export class HisLecComponent implements OnInit{
     if(this.findDay.ano == null || this.findDay.mes == null || this.findDay.dia == null){
       alert("Ingresa la fecha a verificar")
     }else{
-      this.http.makeRequest('post', environment.api_url+'/perDate',{
+      this.http.makeRequest('post', environment.api_url+'/mysqlPerDate',{
         body:{
           year: this.findDay.ano,
           month:this.findDay.mes,
@@ -99,7 +99,7 @@ export class HisLecComponent implements OnInit{
     if(this.findBtw.fecha1 == null || this.findBtw.fecha2 == null){
       alert("Ingresa la fecha a verificar")
     }else{
-      this.http.makeRequest('post', environment.api_url+'/betweenDates',{
+      this.http.makeRequest('post', environment.api_url+'/mysqlBetweenDates',{
         body:{
           fecha1: this.findBtw.fecha1,
           fecha2: this.findBtw.fecha2
@@ -112,7 +112,7 @@ export class HisLecComponent implements OnInit{
   }
 
   deletedata(lectura: Lectura){
-    this.http.makeRequest('delete', environment.api_url+'/deleteData',{
+    this.http.makeRequest('delete', environment.api_url+'/mysqlDelete',{
       body:{
         _id:lectura._id
     }}).subscribe();
@@ -139,7 +139,7 @@ export class HisLecComponent implements OnInit{
   resetSearch(){
     this.findLectura.humedad = null,
     this.findLectura.temperatura = null;
-    this.findLectura.fecha = null;
+    this.findLectura.created_at = null;
     this.findDay.ano = null;
     this.findDay.mes = null;
     this.findDay.dia = null;

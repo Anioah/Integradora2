@@ -68,7 +68,7 @@
               <tr *ngFor="let lectura of lecturas_array | paginate: { itemsPerPage: 7, currentPage: page }" class="text-light">
                 <th scoope="row">{{lectura.temperatura}}</th>
                 <td>{{lectura.humedad}}</td>
-                <td>{{lectura.fecha}}</td>
+                <td>{{lectura.created_at}}</td>
                 <td class="form-group">
                   <button class="btn btn-info ml-3" (click)="showLectura(lectura)">Detalles</button>
                   <button class="btn btn-light text-info ml-2" type="button" (click)="deletedata(lectura)">Eliminar</button>
@@ -109,7 +109,7 @@
       <td>{{upLectura.humedad}}</td>
       <td>{{upLectura.latitud}}</td>
       <td>{{upLectura.longitud}}</td>
-      <td>{{upLectura.fecha}}</td>
+      <td>{{upLectura.created_at}}</td>
       <td>
         <button class="btn btn-light text-info mr-8 mt-12" (click)="back()">regresar</button>
       </td>  

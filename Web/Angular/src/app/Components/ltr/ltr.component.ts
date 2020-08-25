@@ -80,7 +80,7 @@ export class LTRComponent implements OnInit {
   //Fin del evento
 
   getData(){
-    this.http.makeRequest('get', environment.api_url + "/lecture",{
+    this.http.makeRequest('get', environment.api_url + "/mysqLecture",{
       body: {
 
       }}).subscribe((data)=>{ this.datos = data });
@@ -89,7 +89,7 @@ export class LTRComponent implements OnInit {
   }
 
   calculateAverage(){
-    this.http.makeRequest('get', environment.api_url + "/calculateAverage",{
+    this.http.makeRequest('get', environment.api_url + "/mysqlCalculateAverage",{
       body:{
 
       }

@@ -52,7 +52,7 @@ public class RecyclerFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public String getdata_url = "http://100.26.102.200/api/show";
+    public String getdata_url = "http://100.26.102.200/api/showMysql";
     private RequestQueue queue = null;
     private JsonObjectRequest request;
     private RecyclerView geolocalization_historial;
@@ -120,6 +120,7 @@ public class RecyclerFragment extends Fragment {
                     public void onResponse(JSONArray response) {
                         // Do something with response
                         //mTextView.setText(response.toString());
+                        System.out.println(response);
 
                         // Process the JSON
                         try{
@@ -128,13 +129,12 @@ public class RecyclerFragment extends Fragment {
                                 // Get current json object
                                 JSONObject jsonObject = response.getJSONObject(i);
                                 LectureData datos = new LectureData();
-
                                 //  if(jsonObject.getString("nombre").equals(nombre)) {
                                 datos.setTemperatura(jsonObject.getString("temperatura"));
                                 datos.setHumedad(jsonObject.getString("humedad"));
                                 datos.setLatitud(jsonObject.getString("latitud"));
                                 datos.setLongitud(jsonObject.getString("longitud"));
-                                datos.setTiempo(jsonObject.getString("fecha"));
+                                datos.setTiempo(jsonObject.getString("created_at"));
 
                                 historial.add(datos);
 
