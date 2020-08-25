@@ -40,6 +40,17 @@ Route.group(() => {
   Route.post('betweenDates','LecturaController.showBetweenDates'); // show lectures between 2 days
   Route.delete('deleteData','LecturaController.delete');  // delete an existent lecture
 
+  //Mysql
+  Route.post('newMysqLecture', 'LecturaController.newMysqlLecture');
+  Route.get('showMysql', 'LecutraController.showMysql');
+  Route.get('mysqLecture', 'LecturaController.getMysqlLecture');
+  Route.delete('mysqlDelete','LecturaController.deleteMysql');
+  Route.post('mysqlPerTemperature','LecturaController.mysqlPerTemperatures');
+  Route.post('mysqlPerHumedity','LecturaController.mysqlPerHumedity');
+  Route.post('mysqlPerDate','LecturaController.mysqlPerDate');
+  Route.post('mysqlBetweenDates','LecturaController.mysqlBetweenDates');
+  Route.get('mysqlCalculateAverage','LecturaController.mysqlMakePromedio');
+
   // average 
   Route.get('calculateAverage', 'LecturaController.makePromedio'); // store a new average
   

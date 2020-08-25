@@ -52,7 +52,7 @@ public class RecyclerFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public String getdata_url = "http://192.168.43.95:3333/show";
+    public String getdata_url = "http://100.26.102.200/api/show";
     private RequestQueue queue = null;
     private JsonObjectRequest request;
     private RecyclerView geolocalization_historial;
