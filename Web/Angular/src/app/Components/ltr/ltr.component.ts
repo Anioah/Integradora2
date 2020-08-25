@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Lectura } from 'src/app/models/lectura';
-import { environment } from 'src/environments/environment.prod';
+import { environment } from 'src/environments/environment';
 import { HttpClientService } from 'src/app/services/http-client.service';
 
 import { Router } from '@angular/router';

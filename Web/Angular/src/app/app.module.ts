@@ -12,6 +12,7 @@ import { AuthHttpInterceptor } from './Interceptor/auth-http-interceptor.service
 import { FormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { NgxPaginationModule } from 'ngx-pagination';
+//import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -30,10 +31,11 @@ import { NgxPaginationModule } from 'ngx-pagination';
     NgxPaginationModule
   ],
   providers: [
+    //{provide: LocationStrategy, useClass: HashLocationStrategy},
     HttpClientService,{
       provide: HTTP_INTERCEPTORS,
       useClass: AuthHttpInterceptor,
-      multi: true
+      multi: true,
     }
   ],
   bootstrap: [AppComponent]
